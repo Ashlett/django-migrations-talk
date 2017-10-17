@@ -7,8 +7,10 @@ from django.db import migrations
 
 def swap_training_and_interview(apps, schema_editor):
     Event = apps.get_model('roombook', 'Event')
-    Event.objects.filter(category='training').update(category='interview')
-    Event.objects.filter(category='interview').update(category='training')
+    training_ids = Event.objects.filter(category='training').values_list('id', flat=True)
+    interview_ids = Event.objects.filter(category='interview').values_list('id', flat=True)
+    Event.objects.filter(id__in=training_ids).update(category='interview')
+    Event.objects.filter(id__in=interview_ids).update(category='training')
 
 
 class Migration(migrations.Migration):
