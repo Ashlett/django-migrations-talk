@@ -7,10 +7,10 @@ class Room(models.Model):
     floor = models.SmallIntegerField()
     symbol = models.CharField(max_length=10)
     name = models.CharField(max_length=50)
-    capacity = models.IntegerField()
+    capacity = models.PositiveIntegerField()
 
     def __str__(self):
-        return 'Room {} {}'.format(self.symbol, self.name)
+        return 'Room {} {} ({})'.format(self.symbol, self.name, self.capacity)
 
 
 class RoomReservation(models.Model):
