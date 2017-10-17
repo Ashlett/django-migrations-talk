@@ -1,6 +1,6 @@
-## The DOs and DON'Ts of data migrations in Django
+## The DOs and DON'Ts of migrations in Django
 
-This is a sample project created for a talk about data migrations in Django.
+This is a sample project created for a talk about migrations in Django.
 
 ### Step 0
 
