@@ -3,16 +3,18 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
+from django.db.models import Case, Value, When
 
 
 def swap_training_and_interview(apps, schema_editor):
     Event = apps.get_model('roombook', 'Event')
-    training_ids = list(Event.objects.filter(category='training').values_list('id', flat=True))
-    interview_ids = list(
-        Event.objects.filter(category='interview').values_list('id', flat=True)
+    Event.objects.update(
+        category=Case(
+            When(category='training', then=Value('interview')),
+            When(category='interview', then=Value('training')),
+            default=Value('meeting')
+        )
     )
-    Event.objects.filter(id__in=training_ids).update(category='interview')
-    Event.objects.filter(id__in=interview_ids).update(category='training')
 
 
 class Migration(migrations.Migration):
