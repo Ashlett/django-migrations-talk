@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Room(models.Model):
@@ -19,7 +20,9 @@ class RoomReservation(models.Model):
     end = models.DateTimeField()
 
     def __str__(self):
-        return '{}: {}'.format(self.room, self.start)
+        return '{}: {:%Y-%m-%d %H:%M} - {:%Y-%m-%d %H:%M}'.format(
+            self.room, timezone.localtime(self.start), timezone.localtime(self.end)
+        )
 
 
 class Event(models.Model):
@@ -42,4 +45,4 @@ class Event(models.Model):
     room_reservation = models.OneToOneField(RoomReservation, null=True, blank=True)
 
     def __str__(self):
-        return '{}: {}'.format(self.title, self.start)
+        return '{} on {:%Y-%m-%d (%a) at %H:%M}'.format(self.title, timezone.localtime(self.start))
