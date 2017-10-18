@@ -82,4 +82,4 @@ the same forward and backward (do you know why?).
 
 If you look at the commit history, it shows the 4 different ways of writing this migration that
 were shown during the talk: the obviously incorrect, the seemingly correct, the really correct
-and the optimal one. Fial version in directory `step4` is the last one.
+and the optimal one. Final version in directory `step4` is the last one.
